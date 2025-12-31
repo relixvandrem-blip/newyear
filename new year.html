@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy New Year, My Love</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
+
+body{
+  min-height:100vh;
+  background:linear-gradient(to bottom,#050014,#02000a);
+  color:white;
+  overflow:hidden;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+}
+
+/* ===== BACKGROUND IMAGE RAIN ===== */
+#imgRain{
+  position:fixed;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+}
+.img-drop{
+  position:absolute;
+  top:-120px;
+  width:80px;
+  opacity:.25;
+  animation:fall linear infinite;
+}
+@keyframes fall{
+  to{transform:translateY(120vh)}
+}
+
+/* ===== FIREWORK ===== */
+#fireworks{
+  position:fixed;
+  inset:0;
+  z-index:1;
+  pointer-events:none;
+}
+
+/* ===== CONTENT ===== */
+.container{
+  position:relative;
+  z-index:3;
+  width:100%;
+  max-width:420px;
+  padding:20px;
+}
+
+.hidden{display:none}
+
+/* ===== TEXT ===== */
+h1{
+  font-size:2.2rem;
+  margin-bottom:8px;
+  animation:fadeIn 1.5s forwards;
+}
+.subtitle{
+  font-size:.95rem;
+  color:#ffd6f0;
+  animation:fadeIn 2s forwards;
+}
+
+/* ===== COUNTDOWN ===== */
+.countdown{
+  display:flex;
+  justify-content:center;
+  gap:14px;
+  margin:25px 0;
+}
+.time-box{
+  background:rgba(255,255,255,.12);
+  backdrop-filter:blur(12px);
+  border-radius:18px;
+  padding:14px 16px;
+  min-width:85px;
+  box-shadow:0 0 22px rgba(255,150,200,.45);
+}
+.time-box span{
+  font-size:1.9rem;
+  font-weight:600;
+}
+.time-box small{
+  font-size:.7rem;
+  opacity:.8;
+}
+
+/* ===== BUTTON ===== */
+button{
+  border:none;
+  border-radius:30px;
+  padding:12px 22px;
+  background:linear-gradient(135deg,#ff9adf,#7bb6ff);
+  color:white;
+  font-size:.9rem;
+  cursor:pointer;
+  margin:8px;
+  box-shadow:0 0 25px rgba(255,150,220,.6);
+}
+
+/* ===== CARDS ===== */
+.cards{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+  margin-top:18px;
+}
+.card{
+  background:rgba(255,255,255,.14);
+  border-radius:20px;
+  padding:18px;
+  cursor:pointer;
+  animation:float 3s ease-in-out infinite;
+  box-shadow:0 0 18px rgba(120,180,255,.4);
+}
+
+/* ===== LETTER ===== */
+.letter{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.65);
+  display:none;
+  justify-content:center;
+  align-items:center;
+  z-index:5;
+}
+.letter-box{
+  background:linear-gradient(135deg,#ffb6e8,#8fc5ff);
+  color:#3a0033;
+  padding:26px;
+  border-radius:22px;
+  max-width:300px;
+  animation:heartbeat 1.2s infinite;
+}
+
+/* ===== ANIMATION ===== */
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes float{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-8px)}
+}
+@keyframes heartbeat{
+  0%,100%{transform:scale(1)}
+  50%{transform:scale(1.06)}
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="fireworks"></canvas>
+<div id="imgRain"></div>
+
+<div class="container">
+  <h1 id="title" class="hidden">Happy New Year, jayaaa pacallkuuuu   🥳💕💕🥳</h1>
+  <p id="subtitle" class="subtitle hidden">
+    Terima kasih sudahhh mauu hadirrr di hidupkuuu tahunnn iniii hehe <br>
+    btw jangannn lupaa <br> dibukaa yaww cardd cardd nyaa hehehe 😁 
+    </p>
+
+  <div class="countdown" id="countdown">
+    <div class="time-box"><span id="h">00</span><small>Jam</small></div>
+    <div class="time-box"><span id="m">00</span><small>Menit</small></div>
+    <div class="time-box"><span id="s">00</span><small>Detik</small></div>
+  </div>
+
+  <div id="content" class="hidden">
+    <div class="cards">
+      <div class="card" onclick="showMsg('makasihh yawww udahh bikinn akuu senyummm senyumm teruss 😁')">💗</div>
+      <div class="card" onclick="showMsg('makasihhh jugaaa untukkk beberapaa hariii dii akhirr tahunnn iniii😍')">💌</div>
+      <div class="card" onclick="showMsg('and i still lovee youu,youu knoww 🤭')">🌸</div>
+      <div class="card" onclick="showMsg('one moree semogaa kamuu still lovee mee jugaa yawwww hehehe👉👈')">💙</div>
+    </div>
+
+    <button onclick="openLetter()">💌 Buka Surat Cinta</button>
+    <button onclick="toggleMusic()">🎵 Play / Pause</button>
+  </div>
+</div>
+
+<div class="letter" id="letter">
+  <div class="letter-box">
+    <p>
+      Tahun baru,<br>
+      mungkinn orangg bakall bilangg orangg baruu,<br>
+      tapii akuu ndaa, karenaa cintaku tetap ke kamu, xixixi 💖
+    </p><br>
+    <button onclick="closeLetter()">Tutup</button>
+  </div>
+</div>
+
+<audio id="music" src="about you instrumen.mp3" loop></audio>
+
+<script>
+/* ===== CONFIG ===== */
+const TARGET_DATE=new Date("2026-01-01 00:00:00").getTime();
+
+/* ===== COUNTDOWN ===== */
+const h=document.getElementById("h");
+const m=document.getElementById("m");
+const s=document.getElementById("s");
+const music=document.getElementById("music");
+let ended=false;
+
+setInterval(()=>{
+  if(ended) return;
+  let diff=TARGET_DATE-Date.now();
+
+  if(diff<=0){
+    ended=true;
+    document.getElementById("countdown").style.display="none";
+    document.getElementById("content").classList.remove("hidden");
+    document.getElementById("title").classList.remove("hidden");
+    document.getElementById("subtitle").classList.remove("hidden");
+    startFirework();
+    startImageRain();
+    music.play();
+    return;
+  }
+
+  h.textContent=String(Math.floor(diff/3600000)).padStart(2,"0");
+  diff%=3600000;
+  m.textContent=String(Math.floor(diff/60000)).padStart(2,"0");
+  diff%=60000;
+  s.textContent=String(Math.floor(diff/1000)).padStart(2,"0");
+},1000);
+
+/* ===== MUSIC ===== */
+document.body.addEventListener("click",()=>{music.play()},{once:true});
+function toggleMusic(){music.paused?music.play():music.pause()}
+
+/* ===== IMAGE RAIN ===== */
+const images=["1.png","2.png","3.png"]; // GANTI / TAMBAH GAMBAR DI SINI
+function startImageRain(){
+  setInterval(()=>{
+    const img=document.createElement("img");
+    img.src=images[Math.floor(Math.random()*images.length)];
+    img.className="img-drop";
+    img.style.left=Math.random()*100+"vw";
+    img.style.animationDuration=(6+Math.random()*4)+"s";
+    document.getElementById("imgRain").appendChild(img);
+    setTimeout(()=>img.remove(),10000);
+  },500);
+}
+
+/* ===== FIREWORK ===== */
+const canvas=document.getElementById("fireworks");
+const ctx=canvas.getContext("2d");
+canvas.width=innerWidth; canvas.height=innerHeight;
+addEventListener("resize",()=>{canvas.width=innerWidth;canvas.height=innerHeight});
+let particles=[];
+function startFirework(){
+  setInterval(()=>{
+    const x=Math.random()*canvas.width;
+    const y=canvas.height*0.6+Math.random()*80;
+    ["#ff9adf","#7bb6ff"].forEach(c=>{
+      for(let i=0;i<25;i++){
+        particles.push({x,y,vx:(Math.random()-.5)*6,vy:(Math.random()-.8)*6,l:60,c});
+      }
+    });
+  },900);
+}
+(function animate(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  particles.forEach((p,i)=>{
+    p.x+=p.vx;p.y+=p.vy;p.l--;
+    ctx.fillStyle=p.c;
+    ctx.beginPath();ctx.arc(p.x,p.y,2,0,Math.PI*2);ctx.fill();
+    if(p.l<=0)particles.splice(i,1);
+  });
+  requestAnimationFrame(animate);
+})();
+
+/* ===== UI ===== */
+function openLetter(){document.getElementById("letter").style.display="flex"}
+function closeLetter(){document.getElementById("letter").style.display="none"}
+function showMsg(msg){alert(msg)}
+</script>
+
+</body>
+</html>
